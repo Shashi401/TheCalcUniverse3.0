@@ -1,0 +1,364 @@
+<title>Direction A — Ledger, Elevated</title>
+<style>
+  :root{
+    --paper:#F5F7F4; --card:#FFFFFF; --ink:#16211C; --ink2:#49584F; --ink3:#7B887F;
+    --line:#DCE3DD; --hair:#E9EEEA;
+    --green:#1E6B52; --green-deep:#11402F; --green-soft:#E9F2ED; --green-ink:#FFFFFF;
+    --copper:#A5622A; --copper-soft:#F6ECE1;
+    --good:#0E7A46; --warn:#96660A;
+    --shadow:0 1px 2px rgba(22,33,28,.05),0 8px 28px rgba(22,33,28,.07);
+    --serif:Charter,'Bitstream Charter','Sitka Text',Cambria,Georgia,serif;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,Ubuntu,sans-serif;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:var(--green);text-decoration:none} a:hover{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  .dirnote{background:#1B2420;color:#C9D4CD;font:12.5px/1.5 var(--sans);padding:10px 0}
+  .dirnote .wrap{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline}
+  .dirnote b{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+
+  /* ---------- header ---------- */
+  .topbar{background:var(--card);border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+  .wordmark{font:600 21px/1 var(--serif);letter-spacing:-.01em;color:var(--ink)}
+  .wordmark em{font-style:normal;color:var(--green)}
+  .topnav{display:flex;gap:20px;font:500 14px var(--sans);overflow-x:auto;scrollbar-width:none;min-width:0}
+  .topnav a{color:var(--ink2);padding:4px 0;border-bottom:2px solid transparent}
+  .topnav a[aria-current]{color:var(--ink);border-bottom-color:var(--green)}
+  .top-spacer{flex:1}
+  .searchpill{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font:13.5px var(--sans);color:var(--ink3);cursor:pointer;white-space:nowrap}
+  .searchpill kbd{font:11px var(--mono);border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:var(--card);color:var(--ink3)}
+
+  .mocklabel{margin:34px 0 14px;font:600 11.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);display:flex;align-items:center;gap:12px}
+  .mocklabel::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ---------- homepage ---------- */
+  .hero{padding:58px 0 8px;text-align:center;background:
+    radial-gradient(700px 320px at 50% -80px, rgba(30,107,82,.07), transparent 70%)}
+  .eyebrow{font:600 12px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--green)}
+  .hero h1{font:650 54px/1.08 var(--serif);letter-spacing:-.02em;margin:14px auto 12px;max-width:17ch;text-wrap:balance}
+  .hero p{color:var(--ink2);max-width:56ch;margin:0 auto 30px;font-size:17px}
+  .bigsearch{display:flex;max-width:620px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .bigsearch input{flex:1;border:0;background:none;padding:16px 20px;font:16px var(--sans);color:var(--ink);outline:none;min-width:0}
+  .bigsearch button{border:0;background:var(--green);color:var(--green-ink);font:600 15px var(--sans);padding:0 26px;cursor:pointer}
+  .bigsearch button:hover{background:var(--green-deep)}
+  .popular{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 0;font-size:13px}
+  .popular span{color:var(--ink3)}
+  .popular a{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 13px;color:var(--ink2);font-weight:600}
+  .popular a:hover{border-color:var(--green);color:var(--green);text-decoration:none}
+
+  .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  @media(max-width:880px){.cats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.cats{grid-template-columns:1fr}.hero h1{font-size:38px}}
+  .cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);transition:border-color .15s}
+  .cat:hover{border-color:var(--green)}
+  .cat h3{margin:0;font:650 20px/1.2 var(--serif)}
+  .cat .count{font:600 11.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:4px 0 12px}
+  .cat ul{list-style:none;margin:0;padding:0;font-size:14px;display:grid;gap:6px}
+  .cat li a{color:var(--ink2)} .cat li a:hover{color:var(--green)}
+  .cat .all{display:inline-block;margin-top:12px;font:600 13.5px var(--sans);color:var(--green)}
+
+  .truststrip{margin:44px 0 8px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);position:relative;padding:22px 0}
+  .truststrip::before,.truststrip::after{content:"";position:absolute;left:0;right:0;height:1px;background:var(--ink)}
+  .truststrip::before{top:3px}.truststrip::after{bottom:3px}
+  .truststrip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media(max-width:720px){.truststrip .wrap{grid-template-columns:1fr}}
+  .trust h4{margin:0 0 4px;font:650 16.5px var(--serif)}
+  .trust p{margin:0;font-size:13.5px;color:var(--ink2)}
+
+  /* ---------- flagship page ---------- */
+  .crumbs{font-size:13px;color:var(--ink3);padding-top:22px}
+  .crumbs a{color:var(--ink3)}
+  .pgtitle{font:650 38px/1.12 var(--serif);letter-spacing:-.015em;margin:8px 0 4px;text-wrap:balance}
+  .updated{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--sans);color:var(--good);background:var(--green-soft);border-radius:999px;padding:5px 11px;vertical-align:8px;margin-left:10px}
+  .promise{color:var(--ink2);max-width:66ch;margin:0 0 22px;font-size:16px}
+
+  .calc{display:grid;grid-template-columns:minmax(330px,5fr) 7fr;gap:22px;align-items:start}
+  @media(max-width:880px){.calc{grid-template-columns:1fr}.results{order:-1}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .inputs{padding:22px}
+  .ph{margin:0 0 6px;font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+  .tabs{display:flex;gap:6px;margin:12px 0 2px}
+  .tabs button{flex:1;border:1px solid var(--line);background:var(--paper);color:var(--ink2);border-radius:9px;padding:8px 0;font:600 13px var(--sans);cursor:pointer}
+  .tabs button[aria-selected="true"]{background:var(--green-soft);border-color:var(--green);color:var(--ink)}
+  .tabs .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+  .field{margin-top:15px}
+  .field label{display:flex;align-items:baseline;gap:8px;font:600 14px var(--sans)}
+  .whats{font:400 12px var(--sans);color:var(--ink3);border:0;background:none;padding:0;text-decoration:underline dotted;cursor:pointer}
+  .inwrap{display:flex;align-items:center;margin-top:6px;border:1px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden;transition:border-color .12s}
+  .inwrap:focus-within{border-color:var(--green);background:var(--card)}
+  .inwrap .fix{padding:0 11px;color:var(--ink3);font:14px var(--sans)}
+  .inwrap input{flex:1;min-width:0;border:0;background:none;color:var(--ink);font:16px var(--sans);font-variant-numeric:tabular-nums;padding:11px 2px;outline:none}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  details.more{margin-top:18px;border-top:1px dashed var(--line);padding-top:13px}
+  details.more summary{cursor:pointer;font:600 14px var(--sans);color:var(--green);list-style:none}
+  details.more summary::before{content:"+ "}
+  details.more[open] summary::before{content:"− "}
+  .comparebtn{margin-top:20px;width:100%;border:1px solid var(--green);background:none;color:var(--green);border-radius:9px;padding:11px 0;font:600 14px var(--sans);cursor:pointer}
+  .comparebtn:hover{background:var(--green-soft)}
+
+  /* banknote double-rule frame on the answer panel */
+  .results{padding:26px 28px;position:relative}
+  .results::before{content:"";position:absolute;inset:5px;border:1px solid var(--hair);border-radius:10px;pointer-events:none}
+  .heroes{display:flex;flex-wrap:wrap;gap:6px 34px;align-items:baseline}
+  .heroN{font:650 54px/1.05 var(--serif);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--green-deep)}
+  .heroN .per{font:400 17px var(--sans);color:var(--ink3);letter-spacing:0}
+  .heroN.b{color:var(--copper);font-size:34px}
+  .rule{height:1px;background:linear-gradient(90deg,var(--ink) 0 8px,var(--line) 8px calc(100% - 8px),var(--ink) calc(100% - 8px));margin:14px 0 10px;max-width:460px}
+  .breakdown{margin:0;font-size:13.5px;color:var(--ink2);font-variant-numeric:tabular-nums}
+  .breakdown i{font-style:normal;color:var(--ink3);margin:0 6px}
+  .verdict{margin:12px 0 0;max-width:60ch;color:var(--ink2);font-size:15px}
+  .verdict strong{color:var(--ink)}
+  .delta{margin-top:14px;background:var(--copper-soft);border-radius:9px;padding:11px 15px;font-size:14px;color:var(--ink)}
+  .delta b{font-variant-numeric:tabular-nums}
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+  @media(max-width:480px){.metrics{grid-template-columns:1fr 1fr}}
+  .metric{background:var(--paper);border-radius:9px;padding:11px 13px}
+  .metric .k{font:600 11px/1.2 var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+  .metric .v{font:600 18px/1.3 var(--sans);font-variant-numeric:tabular-nums;margin-top:3px}
+  .chartbox{margin-top:20px}
+  .chartbox h3{margin:0 0 4px;font:600 13px var(--sans);color:var(--ink2)}
+  .legend{display:flex;gap:16px;font-size:12.5px;color:var(--ink2);margin:2px 0 4px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px}
+  .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+  .actions button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:9px;padding:9px 14px;font:600 13px var(--sans);cursor:pointer}
+  .actions .primary{background:var(--green);border-color:var(--green);color:var(--green-ink)}
+  .actions .primary:hover{background:var(--green-deep)}
+  .privacy{margin:15px 0 0;font-size:12px;color:var(--ink3)}
+
+  .workhost{grid-column:1/-1}
+  .workhost h2{font:650 26px/1.2 var(--serif);margin:36px 0 6px}
+  .worklist{counter-reset:s;list-style:none;padding:0;margin:12px 0 0}
+  .worklist li{position:relative;padding:11px 15px 11px 46px;border:1px solid var(--hair);background:var(--card);border-radius:9px;margin-top:8px;font-size:14.5px;color:var(--ink2)}
+  .worklist li b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .worklist li::before{counter-increment:s;content:counter(s);position:absolute;left:13px;top:11px;width:22px;height:22px;border-radius:50%;background:var(--green-soft);color:var(--green);font:600 12px/22px var(--sans);text-align:center}
+
+  .article{max-width:70ch;margin:40px auto 0}
+  .byline{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:13px 17px;font-size:13px;color:var(--ink2)}
+  .byline b{color:var(--ink)}
+  .article h2{font:650 26px/1.2 var(--serif);letter-spacing:-.01em;margin:36px 0 8px;text-wrap:balance}
+  .article p{color:var(--ink2);margin:8px 0}
+  .article strong{color:var(--ink)}
+  .formula{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px 19px;font:16px var(--mono);overflow-x:auto}
+  .faq{border-bottom:1px solid var(--hair);padding:6px 0 16px}
+  .faq h3{font:600 17px/1.35 var(--sans);margin:18px 0 6px}
+  .faq p{margin:0}
+
+  footer{margin-top:56px;border-top:1px solid var(--line);background:var(--card);padding:26px 0 38px;font-size:13px;color:var(--ink3)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px}
+</style>
+
+<div class="dirnote">
+  <div class="wrap">
+    <b>Direction A · Ledger, Elevated</b>
+    <span>The approved green-and-copper identity, executed premium: banknote rules, engraved depth, a real homepage. Calm authority — the register of a very good bank. The calculator below is live: edit the inputs.</span>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a href="#" class="wordmark">TheCalc<em>Universe</em></a>
+    <nav class="topnav" aria-label="Categories">
+      <a href="#" aria-current="page">Finance</a><a href="#">Health</a><a href="#">Math</a><a href="#">Electrical</a><a href="#">Conversions</a><a href="#">Everyday</a>
+    </nav>
+    <span class="top-spacer"></span>
+    <button class="searchpill" type="button">Search calculators <kbd>⌘K</kbd></button>
+  </div>
+</header>
+
+<div class="wrap"><div class="mocklabel">Mock 1 · Homepage</div></div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Every engine tested · every source cited</div>
+    <h1>Ask a number-shaped question.</h1>
+    <p>Get a verifiably correct answer in seconds — with the work shown, your options compared, nothing in your way, and your numbers never leaving your device.</p>
+    <div class="bigsearch">
+      <input type="text" placeholder="Try “mortgage on $400,000 at 6.8%” or “15% tip on $84”" aria-label="Search calculators" />
+      <button type="button">Calculate</button>
+    </div>
+    <div class="popular"><span>Popular:</span>
+      <a href="#">Mortgage</a><a href="#">Compound interest</a><a href="#">BMI</a><a href="#">Percentage</a><a href="#">Take-home pay</a><a href="#">Ohm’s law</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cats">
+    <div class="cat"><h3>Finance</h3><div class="count">214 calculators</div>
+      <ul><li><a href="#">Mortgage payment</a></li><li><a href="#">Loan &amp; EMI</a></li><li><a href="#">Compound interest</a></li><li><a href="#">Take-home pay</a></li></ul>
+      <a class="all" href="#">All finance →</a></div>
+    <div class="cat"><h3>Health</h3><div class="count">88 calculators</div>
+      <ul><li><a href="#">BMI</a></li><li><a href="#">Calorie needs</a></li><li><a href="#">Due date</a></li><li><a href="#">Body fat</a></li></ul>
+      <a class="all" href="#">All health →</a></div>
+    <div class="cat"><h3>Math</h3><div class="count">176 calculators</div>
+      <ul><li><a href="#">Percentage</a></li><li><a href="#">Fractions</a></li><li><a href="#">Quadratic solver</a></li><li><a href="#">Standard deviation</a></li></ul>
+      <a class="all" href="#">All math →</a></div>
+    <div class="cat"><h3>Electrical</h3><div class="count">64 calculators</div>
+      <ul><li><a href="#">Ohm’s law</a></li><li><a href="#">Voltage divider</a></li><li><a href="#">Wire gauge</a></li><li><a href="#">Power factor</a></li></ul>
+      <a class="all" href="#">All electrical →</a></div>
+    <div class="cat"><h3>Conversions</h3><div class="count">240 calculators</div>
+      <ul><li><a href="#">Length</a></li><li><a href="#">Temperature</a></li><li><a href="#">Currency</a></li><li><a href="#">Data size</a></li></ul>
+      <a class="all" href="#">All conversions →</a></div>
+    <div class="cat"><h3>Everyday</h3><div class="count">102 calculators</div>
+      <ul><li><a href="#">Tip splitter</a></li><li><a href="#">Age</a></li><li><a href="#">Fuel cost</a></li><li><a href="#">Time between dates</a></li></ul>
+      <a class="all" href="#">All everyday →</a></div>
+  </div>
+</div>
+
+<section class="truststrip">
+  <div class="wrap">
+    <div class="trust"><h4>The work, shown</h4><p>Every result comes with its steps — your numbers, traced through the formula, reconciled to the cent.</p></div>
+    <div class="trust"><h4>Open, tested engines</h4><p>Our math is open source, verified against published IRS, CFPB and CMHC examples in a public test suite.</p></div>
+    <div class="trust"><h4>Private by architecture</h4><p>All calculation runs in your browser. Your numbers never leave your device — that’s a promise we publish.</p></div>
+  </div>
+</section>
+
+<div class="wrap"><div class="mocklabel">Mock 2 · Flagship calculator page</div></div>
+
+<main class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Home</a> › <a href="#">Finance</a> › Mortgage Calculator</nav>
+  <h1 class="pgtitle">Mortgage Calculator <span class="updated">✓ Updated for 2026</span></h1>
+  <p class="promise">See your true monthly payment — principal, interest, taxes, insurance, and PMI — and compare two scenarios side by side. Every formula is shown, tested, and sourced.</p>
+
+  <div class="calc">
+    <section class="panel inputs" aria-label="Inputs">
+      <h2 class="ph">Your numbers</h2>
+      <div class="tabs" role="tablist"><button role="tab" aria-selected="true"><span class="dot" style="background:var(--green)"></span>Scenario A</button><button role="tab" aria-selected="false"><span class="dot" style="background:var(--copper)"></span>Scenario B · 15-yr</button></div>
+      <div class="field"><label for="a-price">Home price <button class="whats" type="button">what’s this?</button></label>
+        <div class="inwrap"><span class="fix">$</span><input id="a-price" type="number" inputmode="decimal" value="400000" step="1000" min="0" /></div></div>
+      <div class="row2">
+        <div class="field"><label for="a-down">Down payment</label>
+          <div class="inwrap"><input id="a-down" type="number" inputmode="decimal" value="20" min="0" max="100" /><span class="fix">%</span></div></div>
+        <div class="field"><label for="a-term">Loan term</label>
+          <div class="inwrap"><input id="a-term" type="number" inputmode="decimal" value="30" min="1" max="50" /><span class="fix">yrs</span></div></div>
+      </div>
+      <div class="field"><label for="a-rate">Interest rate <button class="whats" type="button">what’s this?</button></label>
+        <div class="inwrap"><input id="a-rate" type="number" inputmode="decimal" value="6.8" step="0.05" min="0" max="50" /><span class="fix">% / yr</span></div></div>
+      <details class="more"><summary>Add detail — taxes, insurance, income</summary>
+        <div class="row2">
+          <div class="field"><label for="a-tax">Property tax</label><div class="inwrap"><span class="fix">$</span><input id="a-tax" type="number" value="4800" step="100" min="0" /><span class="fix">/yr</span></div></div>
+          <div class="field"><label for="a-ins">Home insurance</label><div class="inwrap"><span class="fix">$</span><input id="a-ins" type="number" value="1800" step="100" min="0" /><span class="fix">/yr</span></div></div>
+        </div>
+      </details>
+      <button class="comparebtn" type="button">✕ Remove comparison</button>
+    </section>
+
+    <section class="panel results" aria-label="Results">
+      <h2 class="ph">Monthly payment</h2>
+      <div class="heroes" aria-live="polite">
+        <div class="heroN" id="heroA">$2,636.16<span class="per"> /mo</span></div>
+        <div class="heroN b" id="heroB">$3,390.36<span class="per"> /mo</span></div>
+      </div>
+      <div class="rule"></div>
+      <p class="breakdown" id="bd">P&amp;I $2,086.16<i>·</i>Tax &amp; insurance $550.00</p>
+      <p class="verdict" id="verdict">Over 30 years you’ll pay <strong>$431,016.53 in interest</strong> — 1.3× for every dollar borrowed. Extra payments cut this fastest in the first decade.</p>
+      <div class="delta" id="delta"><b>B vs A:</b> pays <b>+$754.20/mo</b>, saves <b>$239,750</b> in lifetime interest, and is paid off <b>15 years sooner</b>.</div>
+      <div class="metrics">
+        <div class="metric"><div class="k">Loan amount</div><div class="v" id="mLoan">$320,000</div></div>
+        <div class="metric"><div class="k">Total interest (A)</div><div class="v" id="mInt">$431,017</div></div>
+        <div class="metric"><div class="k">Payoff (A)</div><div class="v" id="mPay">Jul 2056</div></div>
+      </div>
+      <div class="chartbox">
+        <h3>Loan balance over time</h3>
+        <div class="legend"><span><i style="background:var(--green)"></i>Scenario A · 30 yr</span><span><i style="background:var(--copper)"></i>Scenario B · 15 yr</span></div>
+        <svg id="chart" viewBox="0 0 560 240" role="img" aria-label="Loan balance over time" style="width:100%;height:auto;display:block"></svg>
+      </div>
+      <div class="actions">
+        <button class="primary" type="button">Copy link with my numbers</button>
+        <button type="button">Print</button>
+        <button type="button">Embed</button>
+      </div>
+      <p class="privacy">🛡 Your numbers never leave your device — all math runs in your browser.</p>
+    </section>
+
+    <div class="workhost">
+      <h2>Show the work — with your numbers</h2>
+      <ol class="worklist" id="work">
+        <li>Loan amount: $400,000 − 20% down → <b>$320,000.00</b></li>
+        <li>Monthly rate: 6.8% ÷ 12 → <b>0.566667%</b></li>
+        <li>Payment: 320,000 × [r(1+r)³⁶⁰]/[(1+r)³⁶⁰−1] → <b>$2,086.16</b></li>
+        <li>Final payment reconciled to the cent → <b>balance $0.00 after payment 360</b></li>
+      </ol>
+    </div>
+  </div>
+
+  <article class="article">
+    <div class="byline"><span>Written by <b>CalcUniverse Editorial</b></span><span>Reviewed by <b>R. Sharma, CPA</b></span><span>Updated <b>July 2026</b> — refreshed to 2026 average rates</span></div>
+    <h2>How is a monthly mortgage payment calculated?</h2>
+    <p>A monthly mortgage payment is calculated with the amortization formula, where <strong>P</strong> is the loan amount, <strong>r</strong> the monthly interest rate, and <strong>n</strong> the number of monthly payments. For a $320,000 loan at 6.8% over 30 years, that is <strong>$2,086.16 per month</strong> before taxes and insurance.</p>
+    <div class="formula">M = P × [ r(1+r)ⁿ ] / [ (1+r)ⁿ − 1 ]</div>
+    <h2>Frequently asked questions</h2>
+    <div class="faq"><h3>Why is my bank’s payment higher than this calculator’s?</h3><p>Lender quotes typically include escrow — property taxes, homeowners insurance, and mortgage insurance (PMI) — collected on top of principal and interest. Enter those amounts above and the totals will match your lender’s estimate.</p></div>
+    <div class="faq"><h3>What is the 28/36 rule?</h3><p>The 28/36 rule is a lender guideline: spend at most 28% of gross monthly income on housing and at most 36% on all debt combined. Enter your income above and this page checks your payment against it automatically.</p></div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 TheCalcUniverse</span><a href="#">Our promises — no popups, ever</a><a href="#">Methodology</a><a href="#">Privacy</a></div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var fmt=function(v){return "$"+v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})};
+  var fmt0=function(v){return "$"+Math.round(v).toLocaleString("en-US")};
+  function mort(price,down,rate,years,tax,ins){
+    var loan=price*(1-down/100),r=rate/1200,n=Math.round(years*12);
+    var pi=r>0?loan*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):loan/n;
+    var pmi=down<20?loan*0.0075/12:0,esc=(tax+ins)/12;
+    var bal=[],b=loan;bal.push(b);
+    for(var m=1;m<=n;m++){b=b+b*r-pi;if(m%12===0||m===n)if(m%12===0)bal.push(Math.max(b,0));}
+    if(bal.length<years+1)bal.push(0);
+    return{loan:loan,pi:pi,pmi:pmi,esc:esc,total:pi+pmi+esc,ti:pi*n-loan,n:n,bal:bal};
+  }
+  function draw(a,b){
+    var CW=560,CH=240,PL=50,PR=14,PT=12,PB=26,el=$("chart");
+    var yrs=Math.max(a.bal.length,b.bal.length)-1,mx=Math.max.apply(null,a.bal.concat(b.bal,[1]));
+    var X=function(i){return PL+(CW-PL-PR)*i/yrs},Y=function(v){return PT+(CH-PT-PB)*(1-v/mx)};
+    var line=function(d){return d.map(function(v,i){return(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)}).join(" ")};
+    var area=function(d){return line(d)+" L"+X(d.length-1).toFixed(1)+" "+Y(0)+" L"+X(0)+" "+Y(0)+" Z"};
+    var s="";
+    for(var t=0;t<5;t++){var v=mx*t/4;
+      s+='<line x1="'+PL+'" y1="'+Y(v)+'" x2="'+(CW-PR)+'" y2="'+Y(v)+'" stroke="var(--hair)"/>';
+      s+='<text x="'+(PL-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="10.5" fill="var(--ink3)">$'+Math.round(v/1000)+'k</text>';}
+    for(var yr=0;yr<=yrs;yr+=(yrs>20?10:5))
+      s+='<text x="'+X(yr)+'" y="'+(CH-8)+'" text-anchor="middle" font-size="10.5" fill="var(--ink3)">'+(yr===0?"now":yr+"y")+'</text>';
+    s+='<path d="'+area(a.bal)+'" fill="var(--green)" opacity="0.08"/><path d="'+line(a.bal)+'" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round"/>';
+    s+='<circle cx="'+X(a.bal.length-1)+'" cy="'+Y(a.bal[a.bal.length-1])+'" r="3.5" fill="var(--green)"/>';
+    s+='<path d="'+area(b.bal)+'" fill="var(--copper)" opacity="0.08"/><path d="'+line(b.bal)+'" fill="none" stroke="var(--copper)" stroke-width="2" stroke-linejoin="round"/>';
+    s+='<circle cx="'+X(b.bal.length-1)+'" cy="'+Y(b.bal[b.bal.length-1])+'" r="3.5" fill="var(--copper)"/>';
+    el.innerHTML=s;
+  }
+  function render(){
+    var p=+$("a-price").value||0,d=Math.min(100,Math.max(0,+$("a-down").value||0)),
+        r=+$("a-rate").value||0,y=Math.max(1,+$("a-term").value||30),
+        tx=+$("a-tax").value||0,ins=+$("a-ins").value||0;
+    var A=mort(p,d,r,y,tx,ins),B=mort(p,d,r,Math.min(15,y),tx,ins);
+    $("heroA").innerHTML=fmt(A.total)+'<span class="per"> /mo</span>';
+    $("heroB").innerHTML=fmt(B.total)+'<span class="per"> /mo</span>';
+    $("bd").innerHTML="P&amp;I "+fmt(A.pi)+(A.pmi>0?"<i>·</i>PMI "+fmt(A.pmi):"")+(A.esc>0?"<i>·</i>Tax &amp; insurance "+fmt(A.esc):"");
+    var mult=(A.ti/A.loan).toFixed(1);
+    $("verdict").innerHTML="Over "+y+" years you’ll pay <strong>"+fmt(A.ti)+" in interest</strong> — "+mult+"× for every dollar borrowed. Extra payments cut this fastest in the first decade.";
+    var dm=B.total-A.total,di=A.ti-B.ti,dy=y-Math.min(15,y);
+    $("delta").innerHTML="<b>B vs A:</b> pays <b>"+(dm>=0?"+":"−")+fmt(Math.abs(dm))+"/mo</b>, "+(di>=0?"saves <b>"+fmt0(di)+"</b> in lifetime interest":"adds <b>"+fmt0(-di)+"</b> lifetime interest")+(dy>0?", and is paid off <b>"+dy+" years sooner</b>":"")+".";
+    $("mLoan").textContent=fmt0(A.loan);$("mInt").textContent=fmt0(A.ti);
+    var pay=new Date(2026,6+A.n,1);$("mPay").textContent=pay.toLocaleString("en-US",{month:"short",year:"numeric"});
+    $("work").innerHTML=
+      "<li>Loan amount: "+fmt0(p)+" − "+d+"% down → <b>"+fmt(A.loan)+"</b></li>"+
+      "<li>Monthly rate: "+r+"% ÷ 12 → <b>"+(r/12).toFixed(6)+"%</b></li>"+
+      "<li>Payment: "+fmt0(A.loan)+" × [r(1+r)ⁿ]/[(1+r)ⁿ−1], n = "+A.n+" → <b>"+fmt(A.pi)+"</b></li>"+
+      "<li>Final payment reconciled to the cent → <b>balance $0.00 after payment "+A.n+"</b></li>";
+    draw(A,B);
+  }
+  ["a-price","a-down","a-rate","a-term","a-tax","a-ins"].forEach(function(id){$(id).addEventListener("input",render)});
+  render();
+})();
+</script>
