@@ -1,0 +1,22 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Methodology — How We Guarantee Accuracy | TheCalcUniverse"
+  description="How every TheCalcUniverse calculator is tested: golden tests against primary-source examples, integer-cent money math, and dated data with provenance."
+>
+  <article class="article">
+    <h1>How we guarantee accuracy</h1>
+    <p>Accuracy here is architecture, not intention. Four mechanisms, all mandatory:</p>
+    <div class="faq-item"><h3>Exact money math</h3>
+      <p>All currency arithmetic runs in integer cents — never floating point — with rounding as an explicit, documented choice at every step. Amortization schedules must reconcile to the cent: the sum of all principal portions must exactly equal the loan amount, and an automated test enforces it.</p></div>
+    <div class="faq-item"><h3>Golden tests against primary sources</h3>
+      <p>Every engine ships with test cases taken from published examples by authoritative sources (CFPB, Freddie Mac, IRS, CMHC). If our result differs from the source's by a cent, the release is blocked.</p></div>
+    <div class="faq-item"><h3>Property tests</h3>
+      <p>Beyond fixed examples, engines are swept across hundreds of randomized inputs asserting invariants — balances never go negative, schedules always reconcile, every money value is exact cents.</p></div>
+    <div class="faq-item"><h3>Dated data with provenance</h3>
+      <p>Every rate, limit, and bracket carries its source document, retrieval date, effective dates, and reviewer. Data automatically expires: our build fails if out-of-date figures would ship. Nothing on this site is silently stale.</p></div>
+    <p class="src">Questions about a specific calculator's method? Every page shows its formula and its work. If you find a discrepancy, tell us — a confirmed accuracy bug is our highest-severity issue.</p>
+  </article>
+</Base>

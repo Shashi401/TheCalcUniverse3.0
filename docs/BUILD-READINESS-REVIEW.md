@@ -63,6 +63,13 @@ The panels can recommend; only the owner can commit. Four confirmations:
 3. **Engines license** — the open-source-the-math absorption needs a license: MIT (maximum reach/citations) or Apache-2.0 (patent clause). Panel recommendation: **MIT**.
 4. **Final GO** — authorize Sprint 0.
 
+## Owner decisions (recorded July 2026)
+
+1. **GO confirmed** — build authorized.
+2. **Design approved as-is** — mockup v1 is the production reference.
+3. **Engines private for now** — the open-source absorption (user panel #8) is deferred by owner decision; the public methodology page carries the verification story. Revisitable at any time.
+4. **Domain `thecalcuniverse.com`; host TBD** (not Vercel) — build targets host-agnostic static output; deploy wiring waits on the host choice.
+
 ## The build plan (first three sprints, upon GO)
 
 | Sprint | Deliverable |

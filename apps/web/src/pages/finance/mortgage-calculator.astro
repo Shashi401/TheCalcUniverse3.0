@@ -1,0 +1,124 @@
+---
+import Base from "../../layouts/Base.astro";
+import MortgageCalc from "../../components/MortgageCalc.tsx";
+import { mortgage } from "@calc/engines";
+
+// One compute path: the same engine renders the default answer at build time.
+const defaultResult = mortgage({
+  priceC: 40_000_000, downPct: 20, annualRatePct: 6.8, termYears: 30,
+  taxYrC: 480_000, insYrC: 180_000, incomeYrC: 0,
+});
+const piDollars = (defaultResult.values.piC / 100).toLocaleString("en-US", { minimumFractionDigits: 2 });
+
+const faqs = [
+  {
+    q: "How is a monthly mortgage payment calculated?",
+    a: `A monthly mortgage payment is calculated with the amortization formula: M = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1], where P is the loan amount, r is the monthly interest rate, and n is the number of monthly payments. For a $320,000 loan at 6.8% over 30 years, that is $${piDollars} per month before taxes and insurance.`,
+  },
+  {
+    q: "How accurate is a mortgage calculator?",
+    a: "A mortgage calculator computes principal and interest exactly — the same math your lender uses. Your real monthly bill is usually higher because it adds escrow items the base formula excludes: property taxes, homeowners insurance, PMI, and HOA fees. Use the “Add detail” fields to estimate your full payment.",
+  },
+  {
+    q: "Why is my bank’s payment higher than this calculator’s?",
+    a: "Lender quotes typically include escrow — property taxes, homeowners insurance, and mortgage insurance (PMI) — collected on top of principal and interest. They may also quote a different rate after fees (APR vs. note rate). Enter those amounts above and the totals will match your lender’s estimate.",
+  },
+  {
+    q: "What is amortization?",
+    a: "Amortization is paying off a loan with equal periodic payments that gradually shift from mostly interest to mostly principal. Early payments are interest-heavy because interest accrues on the full balance; as the balance falls, more of each identical payment retires principal.",
+  },
+  {
+    q: "What is the 28/36 rule?",
+    a: "The 28/36 rule is a lender guideline: spend at most 28% of gross monthly income on housing costs and at most 36% on all debt combined. It is a screening threshold, not a law — enter your income above and this page checks your payment against it automatically.",
+  },
+];
+
+const title = "Mortgage Calculator — Monthly Payment with Taxes, PMI & Insurance | TheCalcUniverse";
+const description =
+  "Free mortgage calculator: see your true monthly payment with taxes, insurance, and PMI, compare two scenarios side by side, and see every step of the math. Updated for 2026.";
+const pageUrl = new URL("/finance/mortgage-calculator/", Astro.site).href;
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Mortgage Calculator",
+    description,
+    url: pageUrl,
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: new URL("/", Astro.site).href },
+      { "@type": "ListItem", position: 2, name: "Finance", item: new URL("/finance/", Astro.site).href },
+      { "@type": "ListItem", position: 3, name: "Mortgage Calculator", item: pageUrl },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="head">
+    {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+  </Fragment>
+
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> › <a href="/finance/">Finance</a> › Mortgage Calculator</nav>
+  <h1>Mortgage Calculator <span class="updated">✓ Updated for 2026</span></h1>
+  <p class="promise">
+    See your true monthly payment — principal, interest, taxes, insurance, and PMI — and compare two
+    scenarios side by side. Every formula is shown, tested, and sourced.
+  </p>
+
+  <MortgageCalc client:load />
+
+  <article class="article">
+    <div class="byline">
+      <span>Written by <b>CalcUniverse Editorial</b></span>
+      <span>Updated <b>July 2026</b></span>
+    </div>
+
+    <h2>How is a monthly mortgage payment calculated?</h2>
+    <p>
+      A monthly mortgage payment is calculated with the amortization formula:
+      <strong>M = P × [r(1+r)ⁿ] / [(1+r)ⁿ − 1]</strong>, where P is the loan amount, r is the monthly
+      interest rate, and n is the number of monthly payments. For a $320,000 loan at 6.8% over 30 years,
+      that is ${piDollars} per month before taxes and insurance.
+    </p>
+    <div class="formula">M = P × [ r(1+r)ⁿ ] / [ (1+r)ⁿ − 1 ]</div>
+
+    <h2>Frequently asked questions</h2>
+    {faqs.slice(1).map((f) => (
+      <div class="faq-item">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
+
+    <h2>Sources &amp; methodology</h2>
+    <p class="src">
+      Amortization math is verified in an automated test suite against published CFPB and Freddie Mac
+      examples; every schedule must reconcile to the cent. Read <a href="/methodology/">how we test every calculator</a>.
+    </p>
+
+    <h2>Related calculators</h2>
+    <div class="related">
+      <a href="/finance/mortgage-calculator/">Refinance (soon)</a>
+      <a href="/finance/mortgage-calculator/">Affordability (soon)</a>
+      <a href="/finance/mortgage-calculator/">Extra payments (soon)</a>
+      <a href="/finance/mortgage-calculator/">Canadian mortgage (soon)</a>
+    </div>
+  </article>
+</Base>

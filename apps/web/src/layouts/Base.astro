@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+const { title, description, canonical } = Astro.props;
+const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TheCalcUniverse" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap">
+        <a href="/" class="wordmark" style="text-decoration:none">TheCalc<span class="u">Universe</span></a>
+        <nav class="topnav" aria-label="Categories">
+          <a href="/finance/">Finance</a>
+        </nav>
+        <span class="top-spacer"></span>
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle color theme">◐ Theme</button>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer>
+      <div class="wrap">
+        <span>© 2026 TheCalcUniverse</span>
+        <a href="/promises/">Our promises — no popups, ever</a>
+        <a href="/methodology/">Methodology</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </footer>
+    <script>
+      document.getElementById("themeBtn")?.addEventListener("click", () => {
+        const root = document.documentElement;
+        const dark =
+          root.dataset.theme === "dark" ||
+          (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+        root.dataset.theme = dark ? "light" : "dark";
+      });
+    </script>
+  </body>
+</html>

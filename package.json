@@ -1,0 +1,13 @@
+{
+  "name": "thecalcuniverse",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm --filter @calc/web build",
+    "dev": "pnpm --filter @calc/web dev"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

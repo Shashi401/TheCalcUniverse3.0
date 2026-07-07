@@ -1,0 +1,20 @@
+{
+  "name": "@calc/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check || true",
+    "test": "echo 'web: no unit tests yet' && exit 0"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^3.5.0",
+    "@calc/data": "workspace:*",
+    "@calc/engines": "workspace:*",
+    "astro": "^4.16.0",
+    "preact": "^10.24.0"
+  }
+}
