@@ -12,6 +12,7 @@ The most useful, accurate, and trusted calculator site on the internet — built
 | [docs/ENGINEERING-PANEL-REVIEW.md](docs/ENGINEERING-PANEL-REVIEW.md) | Engineering red team — money math, security, data governance, 8 absorbed improvements |
 | [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md) | Design system: tokens, type, template rules, CEO approval record |
 | [docs/UX-PSYCHOLOGY-ABSORPTIONS.md](docs/UX-PSYCHOLOGY-ABSORPTIONS.md) | Six behavioral principles (owner review): what's absorbed into the template contract, what's rejected as anti-brand |
+| [docs/TEMPLATE-RED-TEAM.md](docs/TEMPLATE-RED-TEAM.md) | Design selection red team: six candidates scored, Bold Minimal chosen with 8 absorptions; final mockup is design/mockups/final-bold-minimal.html |
 | [design/mockups/flagship-mortgage.html](design/mockups/flagship-mortgage.html) | Working high-fidelity mockup of the flagship mortgage calculator (open in a browser) |
 
 ## The promise
